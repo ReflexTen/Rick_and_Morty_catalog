@@ -1,3 +1,6 @@
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const webpack = require('webpack')
+const miniCss = require('mini-css-extract-plugin')
 const path = require('path')
 
 module.exports = {
@@ -17,7 +20,7 @@ module.exports = {
     liveReload: true,
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json', '.ts'],
+    extensions: ['.js', '.jsx', '.json', '.ts', '.scss'],
   },
   module: {
     rules: [
@@ -26,6 +29,15 @@ module.exports = {
         exclude: /node_modules/,
         use: 'babel-loader',
       },
+      {
+        test: /\.(s*)css$/,
+        use: [miniCss.loader, 'css-loader', 'sass-loader'],
+      },
     ],
   },
+  plugins: [
+    new miniCss({
+      filename: 'App.scss',
+    }),
+  ],
 }
