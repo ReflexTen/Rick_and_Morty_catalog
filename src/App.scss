@@ -1,0 +1,141 @@
+html {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+blockquote,
+figure {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+address {
+  font-style: normal;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1300px;
+  padding: 50px 30px;
+  margin: 0 auto;
+  font-weight: 900;
+}
+.search-input {
+  padding: 20px;
+  width: 100%;
+  margin-bottom: 30px;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: #fff;
+}
+.season-num {
+  font-size: 36px;
+  text-align: center;
+}
+.episod-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  margin-bottom: 30px;
+}
+.episod {
+  width: 100%;
+  // max-width: 300px;
+  // margin: 15px auto;
+  padding: 15px;
+  background-color: greenyellow;
+  border-radius: 20px;
+  text-align: center;
+  list-style-type: none;
+
+  &__name,
+  &__date,
+  &__num {
+    margin-bottom: 10px;
+  }
+
+  &__name {
+    font-size: 20px;
+  }
+}
+
+.search-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
+
+.container {
+  background-image: url('../src/img/Rick_and_Morty_Season_1.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  // color: white;
+}

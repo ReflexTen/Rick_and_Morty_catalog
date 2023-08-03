@@ -1,8 +1,9 @@
 import React from 'react'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import Episod from './components/episod/Episod'
-import './App.css'
+import Episod from './components/Episod.jsx'
+
+import './App.scss'
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -79,57 +80,57 @@ const App = () => {
   // }, [searchValue])
 
   return (
-    <div className="wrapper">
-      <input
-        value={searchValue}
-        onChange={e => setSearchValue(e.target.value)}
-        className="search-input"
-        placeholder="Поиск по названию..."
-      />
+    <div className="container">
+      <div className="wrapper">
+        <input
+          value={searchValue}
+          onChange={e => setSearchValue(e.target.value)}
+          className="search-input"
+          placeholder="Поиск по названию..."
+        />
 
-      <div>
-        {searchValue
-          ? allSeries
-              .filter(obj => {
-                return obj.name
-                  .toLowerCase()
-                  .includes(searchValue.toLowerCase())
-              })
-              .map(item => {
+        <div className={`${searchValue ? 'search-list' : ''}`}>
+          {searchValue
+            ? allSeries
+                .filter(obj => {
+                  return obj.name
+                    .toLowerCase()
+                    .includes(searchValue.toLowerCase())
+                })
+                .map(item => {
+                  return (
+                    <Episod
+                      key={item.id}
+                      nameSeries={item.name}
+                      airDate={item.air_date}
+                      seriesNumber={item.episode}
+                    />
+                  )
+                })
+            : seasonsList.map((season, idx) => {
                 return (
-                  <Episod
-                    key={item.id}
-                    nameSeries={item.name}
-                    airDate={item.air_date}
-                    seriesNumber={item.episode}
-                  />
+                  <div key={idx}>
+                    <div className="season-num">Season {idx + 1}</div>
+                    <ul className="episod-list">
+                      {isLoading ? (
+                        <div className="loading">Идет загрузка ...</div>
+                      ) : (
+                        season.map(item => {
+                          return (
+                            <Episod
+                              key={item.id}
+                              nameSeries={item.name}
+                              airDate={item.air_date}
+                              seriesNumber={item.episode}
+                            />
+                          )
+                        })
+                      )}
+                    </ul>
+                  </div>
                 )
-
-                // <div key={item.id}>{item.name}</div>
-              })
-          : seasonsList.map((season, idx) => {
-              return (
-                <div>
-                  Season {idx + 1}
-                  <ul>
-                    {isLoading ? (
-                      <div className="loading">Идет загрузка ...</div>
-                    ) : (
-                      season.map(item => {
-                        return (
-                          <Episod
-                            key={item.id}
-                            nameSeries={item.name}
-                            airDate={item.air_date}
-                            seriesNumber={item.episode}
-                          />
-                        )
-                      })
-                    )}
-                  </ul>
-                </div>
-              )
-            })}
+              })}
+        </div>
       </div>
     </div>
   )

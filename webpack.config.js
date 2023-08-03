@@ -1,43 +1,75 @@
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const webpack = require('webpack')
-const miniCss = require('mini-css-extract-plugin')
-const path = require('path')
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+
+let mode = 'development';
+let target = 'web';
+if (process.env.NODE_ENV === 'production') {
+  mode = 'production';
+  target = 'browserslist';
+}
+
+const plugins = [
+  new MiniCssExtractPlugin({
+    filename: '[name].[contenthash].css',
+  }),
+  new HtmlWebpackPlugin({
+    template: './src/index.html',
+  }),
+];
+
+if (process.env.SERVE) {
+  plugins.push(new ReactRefreshWebpackPlugin());
+}
 
 module.exports = {
-  mode: 'development',
+  mode,
+  target,
+  plugins,
+  devtool: 'source-map',
   entry: './src/index.js',
-  output: {
-    path: path.resolve(__dirname, 'public'),
-    filename: 'main.js',
+  devServer: {
+    static: './dist',
+    hot: true,
   },
 
-  target: 'web',
-  devServer: {
-    port: '3000',
-    static: ['./public'],
-    open: true,
-    hot: true,
-    liveReload: true,
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    assetModuleFilename: 'assets/[hash][ext][query]',
+    clean: true,
   },
-  resolve: {
-    extensions: ['.js', '.jsx', '.json', '.ts', '.scss'],
-  },
+
   module: {
     rules: [
+      { test: /\.(html)$/, use: ['html-loader'] },
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: 'babel-loader',
+        test: /\.(s[ac]|c)ss$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'sass-loader',
+        ],
       },
       {
-        test: /\.(s*)css$/,
-        use: [miniCss.loader, 'css-loader', 'sass-loader'],
+        test: /\.(png|jpe?g|gif|svg|webp|ico)$/i,
+        type: mode === 'production' ? 'asset' : 'asset/resource',
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+      },
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+          },
+        },
       },
     ],
   },
-  plugins: [
-    new miniCss({
-      filename: 'App.scss',
-    }),
-  ],
-}
+};
