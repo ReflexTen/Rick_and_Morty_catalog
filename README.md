@@ -1,12 +1,10 @@
-# Webpack 5 config for React
-
-A detailed guide for setting up this config you can find in my article on Habr: https://habr.com/ru/post/597389/
+# Rick_and_Morty_catalog
 
 # Getting Started
 
 First of all, you must copy it to your project:
 
-### `git clone https://github.com/aAleksandrOrlov/webpack-5-react-config ./<your_directory>`
+### `git clone https://github.com/ReflexTen/Rick_and_Morty_catalog ./<your_directory>`
 
 Then install the dependencies:
 
@@ -20,16 +18,8 @@ In the project directory, you can run:
 
 Runs the app in the development mode.\
 Open [http://localhost:8080](http://localhost:8080) to view it in the browser.\
-Enable React Hot Reloading.
 
-### `npm run build`
+### 'For a quick start, just run the index.html file from the folder dist'
 
-Builds the app in the development mode to the `build` folder.
+<!-- Enable React Hot Reloading. -->
 
-### `npm run build-prod`
-
-Builds the app for production to the `build` folder.
-
-### `npm run clean`
-
-Delete `dist` folder.
